@@ -9,9 +9,9 @@ rvm:
 before_install:
   - wget http://sourceforge.net/projects/zabbix/files/ZABBIX%20Release%20Candidates/3.0.0rc1/zabbix-3.0.0rc1.tar.gz/download -O /tmp/zabbix-3.0.0rc1.tar.gz
   - cd /tmp/
-  - tar -xvf /tmp/zabbix-3.0.0rc1.tar.gz
+  - tar -xf /tmp/zabbix-3.0.0rc1.tar.gz
 
-install:
+
 
   - cd /tmp/zabbix-3.0.0rc1
   - ./configure --prefix=/usr

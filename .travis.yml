@@ -12,7 +12,7 @@ before_script:
   - sudo apt-get install libiodbc2
   - sudo useradd -r zabbix
   - sudo wget http://sourceforge.net/projects/zabbix/files/ZABBIX%20Release%20Candidates/3.0.0rc1/zabbix-3.0.0rc1.tar.gz/download
-  - sudo tar -zxvf zabbix-3.0.0.tar.gz
+  - sudo tar -zxvf zabbix-3.0.0rc1.tar.gz
   - sudo ./configure --help
   - sudo ./configure --enable-server --with-postgresql --with-net-snmp --with-libcurl --with-libxml2
   - sudo make install

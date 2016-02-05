@@ -5,7 +5,7 @@ addons:
 rvm:
   - 1.9.3
   - 2.0
-  - 2.1
+  - 2.2
 install:
   - wget http://sourceforge.net/projects/zabbix/files/ZABBIX%20Release%20Candidates/3.0.0rc1/zabbix-3.0.0rc1.tar.gz/download -O /tmp/zabbix-3.0.0rc1.tar.gz
   - cd /tmp/
@@ -28,6 +28,16 @@ install:
   - sudo apt-get install libiodbc2
   - sudo useradd -r zabbix
 
+
+   - sudo apt-get install apache2 libapache2-mod-fastcgi
+   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+   - sudo a2enmod rewrite actions fastcgi alias
+   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+   - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+   # configure apache virtual hosts
+   - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
+   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+
 #
 #  - sudo wget http://sourceforge.net/projects/zabbix/files/ZABBIX%20Release%20Candidates/3.0.0rc1/zabbix-3.0.0rc1.tar.gz/download
 #  - sudo tar -zxvf zabbix-3.0.0rc1.tar.gz
@@ -35,11 +45,13 @@ install:
 #  - sudo ./configure --enable-server --with-postgresql --with-net-snmp --with-libcurl --with-libxml2
 #  - sudo make install
   - sudo apt-get install php5-pgsql
+
+
+  - echo "$(curl -fsSL https://gist.githubusercontent.com/evtuhovich/9544441/raw/d661863063b76cc8e2599bc44d8595b1f86ece38/zabbix)" | sudo tee /etc/zabbix/web/zabbix.conf.php
+
+before_script:
   - sudo service apache2 restart
   - 'echo -e "local   all   all trust\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust" | sudo tee /etc/postgresql/9.4/main/pg_hba.conf'
   - sudo pg_ctlcluster 9.4 main reload
-  - echo "$(curl -fsSL https://gist.githubusercontent.com/evtuhovich/9544441/raw/d661863063b76cc8e2599bc44d8595b1f86ece38/zabbix)" | sudo tee /etc/zabbix/web/zabbix.conf.php
-
-
 
 script: "ZABBIX_HOST_URL=http://localhost/api_jsonrpc.php bundle exec rspec spec/*"

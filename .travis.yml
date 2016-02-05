@@ -19,7 +19,7 @@ install:
   - sudo make install
   - sudo mkdir /etc/zabbix
   - sudo mkdir /etc/zabbix/web
-  - sudo cp conf/* /etc/zabbix/
+  - sudo cp -r conf/* /etc/zabbix/
 
 
 #  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3

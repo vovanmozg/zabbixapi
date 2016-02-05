@@ -21,25 +21,23 @@ install:
   - sudo mkdir /etc/zabbix/web
   - sudo cp -r conf/* /etc/zabbix/
 
+  - export PATH=$PATH:$PWD/tmp/zabbix-3.0.0rc1/bin/
 
-#  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
-#  - sudo apt-get update
-#  - sudo apt-get install libiodbc2
-#  - sudo useradd -r zabbix
-#
-#
-#  - cd protobuf-2.4.1 && ./configure --prefix=/usr && make && sudo make install
-#  - export PATH=$PATH:$PWD/casperjs-1.0.2/bin/
+  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
+  - sudo apt-get update
+  - sudo apt-get install libiodbc2
+  - sudo useradd -r zabbix
+
 #
 #  - sudo wget http://sourceforge.net/projects/zabbix/files/ZABBIX%20Release%20Candidates/3.0.0rc1/zabbix-3.0.0rc1.tar.gz/download
 #  - sudo tar -zxvf zabbix-3.0.0rc1.tar.gz
 #  - sudo ./configure --help
 #  - sudo ./configure --enable-server --with-postgresql --with-net-snmp --with-libcurl --with-libxml2
 #  - sudo make install
-#  - sudo apt-get install php5-pgsql
-#  - sudo service apache2 restart
-#  - 'echo -e "local   all   all trust\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust" | sudo tee /etc/postgresql/9.4/main/pg_hba.conf'
-#  - sudo pg_ctlcluster 9.4 main reload
+  - sudo apt-get install php5-pgsql
+  - sudo service apache2 restart
+  - 'echo -e "local   all   all trust\nhost all all 127.0.0.1/32 trust\nhost all all ::1/128 trust" | sudo tee /etc/postgresql/9.4/main/pg_hba.conf'
+  - sudo pg_ctlcluster 9.4 main reload
   - echo "$(curl -fsSL https://gist.githubusercontent.com/evtuhovich/9544441/raw/d661863063b76cc8e2599bc44d8595b1f86ece38/zabbix)" | sudo tee /etc/zabbix/web/zabbix.conf.php
 
 

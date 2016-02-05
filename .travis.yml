@@ -17,8 +17,8 @@ before_install:
   - ./configure --prefix=/usr
   - make
   - sudo make install
-  ls
-  ls /etc
+  - ls
+  - ls /etc
 
 #  - sudo apt-get purge postgresql-9.1 postgresql-9.2 postgresql-9.3
 #  - sudo apt-get update
